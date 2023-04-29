@@ -24,30 +24,23 @@ Creation of Web Forum Using Python
 
 ##  🧪 Testing
 
-- I started testing parallely while developing. Once, I write any function, I write `doctests` for the function and test the all possible outcomes. It helped me to fix runtime errors during coding phase.
-- Once, the base flow was ready, I started testing with various of different arithmetics statements and fixed major of them. This was the overall base flow testing, not just a function or specific use-case. 
-- The, I started implementing extensions. I did the testing for the extensions in a same way as base flow. Once, all the extensions were tested, I did base flow testing once again just to make sure it does not affect the original flow. 
-- The code was tested for happy cases flow, then I added incomplete statements just to check that it does not fail for that.  I've covered major of corners cases and code was working with expectations of baseline as well as extensions too.
+
 
 ## 🐛 Bugs/Issues
 
-- The latest code has no bugs or issues identified during overall testing.
-- Future improvement: The if-else, loops, functions and many things can be added to current codebase.
 
 ## 💡 Example of issues/bugs and solution for it
 
-- During testing, I found many of the issues/bugs which were difficult to solve. I've highlighted some below:
-1. For unary operation, My code was failing if I've input with negative numbers (unary operation). The fix was a bit time-confusing for me. As the fix took me to change the code. The main issue was because of `-` can be used as subtraction operator as well as represent negative numbers too. Later, I found the fix for it and issue was resolved.
-2. Another issue was with post and pre increment/decrement (`++` and `--`). The main reason behind failure was it has to attached with variable or number, not with any other operator or expression. In order to fix it, I need to keep track of prev parsed token. That was a bit difficult to fix when inputs are complex with parenthesis. But, with the help of TA, I found the fix and it worked in the end. 
-3. The one issue was with boolean operator when the operator is `!` negate. We might've inputs like `!!!!!!1`. My code was failing for this case at the start. I brainstromed the idea because I was using 2 stacks and I forgot to add a conditions when stack is empty. Later, this fix worked and the inputs with multiple operators passed. 
+
 
 ## Baseline Implementation:
 
 
 ## 🧩 Extensions:
-I've implemented 4 extensions. 
+I've implemented 5 extensions. 
 Each extension is described as below:
-### 1. Op-equals:
+
+### 1. Users and user keys:
 - Op-equals extension helps us to evaluate the expressions containing  `+=, -=, *=, /=, %=, ^=, &&=, !!=` operators. 
   - The format for Op-equals is `VAR OP= ARG` means the `op` is applied on `VAR` with argument `ARG`. Usually, all binary operators can be used in Op-equals. 
     - Technically, `x op= y` is equal to `x = x op y`.
@@ -100,7 +93,7 @@ Each extension is described as below:
     ```
 
 
-### 2. Boolean Operators:
+### 2. User profiles (needs user):
 - Binary operations extension evaluates the input statements which contain mathematical expressions having `&& (and), || (or), ! (negation)` operators. `&` and `|` are binary operator while `!` is unary operator. 
 - The output for any boolean expression would `1` means true or `0` means false. Generally, each non-zero number is treated as `true`. 
 - `& (and), | (or)` : supports Op-equals operation too as these are binary operator and updates LHS variable too. 
@@ -149,7 +142,7 @@ Each extension is described as below:
     1 0
     0 1
     ```
-### 3. Comments:
+### 3. Date- and time-based range queries
 - Comments are used to improve more readability of written code. The parser just ignores the commented part of the input. 
 - Comments extension helps us to identify whether the input given is markdown or not.  
 - Comments can be done in 2 ways:
@@ -205,7 +198,7 @@ Each extension is described as below:
     parse error
     ```
     - The reason is that there's no newline separating the two statements.
-### 4. Relational Operations:
+### 4. User-based range queries (needs user)
 - Relational operations extension evaluates the input statements which contain `'==', '<=', '>=', '!=', '<', '>'` operators.  
 - It represents true as `1` and false as `0`. Means the output 1 means the relation holds true for the input.
 - Relational operators should be left associative and lower precedence than arithmteic operators.
@@ -240,6 +233,14 @@ Each extension is described as below:
     ```
     parse error
     ```
+    
+
+### 4. User-based range queries (needs user):
+
+
+### 5. Fulltext search:
+
+
 ## 🏃‍Run Guide
 
 - Install python 3 in your machine
