@@ -28,9 +28,9 @@ Creation of Web Forum Using Python
 
 - I started testing this endpoint in postman application. once the shell script runs, we need to test in postman with the generated IP address from the terminal. using this local IP address: "http://127.0.0.1:5000/post" as required
 - According to the designed code, the user need to give a JSON object as input which contains the following elements below:
-1. msg : The message user want to post
-2. user_id : The ID of the user
-3. user_key : The secret key of the user
+    1. msg : The message user want to post
+    2. user_id : The ID of the user
+    3. user_key : The secret key of the user
 - Example:
 ```
 {
@@ -52,9 +52,138 @@ Creation of Web Forum Using Python
 }
 
 ```
+- Testcases:
+
+1. Case - 1
+```
+{
+    "msg":"Hi From Test case 1",
+    "user_id":"5",
+    "user_key":"xExsCETjGbDD6X4uWnS8DA"
+}
+```
+Output
+```
+{
+    "id": 14,
+    "key": "lD8ZO3hgMGnrf2YRtQS7Nw",
+    "msg": "Hi From Test case 1",
+    "timestamp": "2023-04-30T04:04:01.147144",
+    "user_id": 5,
+    "username": "rohith10"
+}
+```
+2. Case - 2
+```
+{
+    "msg":"Hi From Test case 2",
+    "user_id":"3",
+    "user_key":"xExsCETjGbDD6X4uWnS8DA"
+}
+```
+Output
+```
+{
+    "err": "Invalid user credentials"
+}
+```
+3. Case - 3
+```
+{
+    "msg":"Hi From Test case 3",
+    "user_id":"5"
+}
+```
+Output
+```
+{
+    "err": "Request must contain \"user_id\" and \"user_key\" fields"
+}
+```
+4. Case - 4
+```
+{
+    "user_id":"5",
+    "user_key":"xExsCETjGbDD6X4uWnS8DA"
+}
+```
+Output
+```
+{
+    "err": "Request must contain a \"msg\" field of type string"
+}
+```
+5. Case - 5
+```
+{
+    "msg":1234,
+    "user_id":"5",
+    "user_key":"xExsCETjGbDD6X4uWnS8DA"
+}
+```
+Output
+```
+{
+    "err": "Request must contain a \"msg\" field of type string"
+}
+```
+Case - 6
+```
+{
+    "msg":"Hi from Test case 6",
+    "user_id":5,
+    "user_key":"xExsCETjGbDD6X4uWnS8DA"
+}
+```
+Output
+```
+{
+    "id": 16,
+    "key": "I6n4_fO7nGw44dfj_nXYjA",
+    "msg": "Hi from Test case 6",
+    "timestamp": "2023-04-30T04:12:02.911529",
+    "user_id": 5,
+    "username": "rohith10"
+}
+```
 
 ### Endpint - 2 (read a post with GET /post/{{id}}):
 
+- We need to test in postman with the generated IP address from the terminal. using this local IP address: "http://127.0.0.1:5000/post" as required. This is same for all extensions hereby.
+- To get a post we need to give "id" of the post in postman with the following IP Address format: "http://127.0.0.1:5000/post/<int:id>"
+- Example of Input:
+    "http://127.0.0.1:5000/post/4"
+- Output:
+```
+{
+    "id": 4,
+    "msg": "Play PUBG, Stay Healthy and Happy!!",
+    "timestamp": "2023-04-30T00:48:12.138526",
+    "user_id": 2,
+    "username": "hari45"
+}
+
+```
+- For input: "http://127.0.0.1:5000/post/20"
+- Output:
+```
+{
+    "err": "Post not found with id 20"
+}
+```
+
+- The above mentioned fields must be given for creating any post. 
+- Any of the fields missing will give raise to ValueError. If the user_key is incorrect or does not match with uder_id, it returns Invalid Credentials
+- Instructions to test this Endpoint:
+- Give the post details as below in postman:
+```
+{
+    "msg":"XXX", #message of the user
+    "user_id":"<int:id>", #User id
+    "user_key":"<string:key>" #Secret Key of the User
+}
+
+```
 
 
 
