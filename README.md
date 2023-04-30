@@ -24,14 +24,14 @@ Creation of Web Forum Using Python
 
 ##  🧪 Testing the Baseline (3 Endpoints) and Extensions (5):
 
-# Endpoint - 1 (Creation of Post with POST/post):
+### Endpoint - 1 (Creation of Post with POST/post):
 
--I started testing this endpoint in postman application. once the shell script runs, we need to test in postman with the generated IP address from the terminal. using this local IP address: "http://127.0.0.1:5000/post" as required
--According to the designed code, the user need to give a JSON object as input which contains the following elements below:
+- I started testing this endpoint in postman application. once the shell script runs, we need to test in postman with the generated IP address from the terminal. using this local IP address: "http://127.0.0.1:5000/post" as required
+- According to the designed code, the user need to give a JSON object as input which contains the following elements below:
 1. msg : The message user want to post
 2. user_id : The ID of the user
 3. user_key : The secret key of the user
--Example:
+- Example:
 ```
 {
     "msg":"Hi",
@@ -40,10 +40,10 @@ Creation of Web Forum Using Python
 }
 
 ```
--The above mentioned fields must be given for creating any post. 
--Any of the fields missing will give raise to ValueError. If the user_key is incorrect or does not match with uder_id, it returns Invalid Credentials
--Instructions to test this Endpoint:
--Give the post details as below in postman:
+- The above mentioned fields must be given for creating any post. 
+- Any of the fields missing will give raise to ValueError. If the user_key is incorrect or does not match with uder_id, it returns Invalid Credentials
+- Instructions to test this Endpoint:
+- Give the post details as below in postman:
 ```
 {
     "msg":"XXX", #message of the user
@@ -51,7 +51,9 @@ Creation of Web Forum Using Python
     "user_key":"<string:key>" #Secret Key of the User
 }
 
-# Endpint - 2 (read a post with GET /post/{{id}}):
+```
+
+### Endpint - 2 (read a post with GET /post/{{id}}):
 
 
 
