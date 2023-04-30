@@ -151,7 +151,7 @@ Output
 ### Endpint - 2 (read a post with GET /post/{{id}}):
 
 - We need to test in postman with the generated IP address from the terminal. using this local IP address: "http://127.0.0.1:5000/post" as required. This is same for all extensions hereby.
-- To get a post we need to give "id" of the post in postman with the following IP Address format: "http://127.0.0.1:5000/post/<int:id>"
+- To get a post we need to give "id" of the post in postman with the following IP Address format: "http://127.0.0.1:5000/post/\<int:id>"
 1. Test case - 1
     "http://127.0.0.1:5000/post/4"
 Output:
@@ -213,8 +213,88 @@ Output:
 
 - Hence all the required cases are implemented for this extension
 
+### Extension - 1 (Users and user keys)
 
+- This Extension allows us to create new users by giving "name" and "username" values in JSON input.
+- The given input is valid only when the above 2 values are given and also the username should be unique and do not match with the other usernames already present.
+- The input URL in the postman given is: "http://127.0.0.1:5000/post" and the type of request is POST
+- Given input must be JSON and error handling is done for the extension
+- The ouput field contains JSON object containing 2 fields i.e., "id" and "key"
+1. Test Case - 1
+```
+{
+    "name":"Ramya",
+    "username":"rvalukul"
+}
+```
+Output
+```
+{
+    "id": 5,
+    "key": "aegyAG96mUCs9NrBgdyEnw"
+}
+```
+2. Test Case - 2
+```
+{
+    "name":"Arun"
+}
+```
+Output
+```
+{
+    "err": "Username field is missing or not a string."
+}
+```
+3. Test Case - 3
+```
+{
+    "username":"apjabdul"
+}
+```
+Output
+```
+{
+    "err": "Name field is missing or not a string."
+}
+```
+4. Test Case - 4
+```
+"name":"Khande",
+"username":"khand45"
+```
+Output
+```
+{
+    "err": "Request body must be a valid JSON object."
+}
+```
+5. Test Case - 5
+```
+{
+    "name":9872,
+    "username":"khand45"
+}
 
+Output:
+
+{
+    "err": "Name field is missing or not a string."
+}
+```
+6. Test Case - 6
+```
+{
+    "name":"Ramesh",
+    "username":"rvalukul"
+}
+
+Output:
+
+{
+    "err": "Username is already taken."
+}
+```
 ## 🐛 Bugs/Issues
 
 
