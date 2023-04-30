@@ -146,46 +146,72 @@ Output
     "username": "rohith10"
 }
 ```
+- All operations which are implemented successfully return the code 200 and which are invalid and failed returned the code 400
 
 ### Endpint - 2 (read a post with GET /post/{{id}}):
 
 - We need to test in postman with the generated IP address from the terminal. using this local IP address: "http://127.0.0.1:5000/post" as required. This is same for all extensions hereby.
 - To get a post we need to give "id" of the post in postman with the following IP Address format: "http://127.0.0.1:5000/post/<int:id>"
-- Example of Input:
+1. Test case - 1
     "http://127.0.0.1:5000/post/4"
-- Output:
+Output:
 ```
 {
     "id": 4,
-    "msg": "Play PUBG, Stay Healthy and Happy!!",
+    "msg": "There is a pigeon in the classroom!!",
     "timestamp": "2023-04-30T00:48:12.138526",
     "user_id": 2,
     "username": "hari45"
 }
 
 ```
-- For input: "http://127.0.0.1:5000/post/20"
-- Output:
+2. Test case - 2
+    input: "http://127.0.0.1:5000/post/20"
+Output:
 ```
 {
     "err": "Post not found with id 20"
 }
 ```
+Hence, this is the Endpoint 2 implementation
 
-- The above mentioned fields must be given for creating any post. 
-- Any of the fields missing will give raise to ValueError. If the user_key is incorrect or does not match with uder_id, it returns Invalid Credentials
-- Instructions to test this Endpoint:
-- Give the post details as below in postman:
+### Endpoint - 3: delete a post with DELETE /post/{{id}}/delete/{{key}}
+
+- This endpoint is designed to delete a post with the respective post id and secret key of the post.
+- The Input URL should be of the form "/post/<int:id>/delete/<string:key>" where id = post's id and key = post's key
+- If the post id and key do not match, it raises error and returns the code 403
+- If there is no ID present in the input URL, it raises error and returns the code 404
+
+1. Test case - 1
+    Input: http://127.0.0.1:5000/post/3/delete/7GepPrRYI5BCWNBSlwA0FA
+Output:
 ```
 {
-    "msg":"XXX", #message of the user
-    "user_id":"<int:id>", #User id
-    "user_key":"<string:key>" #Secret Key of the User
+    "id": 3,
+    "key": "7GepPrRYI5BCWNBSlwA0FA",
+    "timestamp": "2023-04-30T00:47:54.156596",
+    "user_id": 2,
+    "username": "hari45"
 }
-
+```
+2. Test case - 2
+    Input: http://127.0.0.1:5000/post/5/delete/s43gm_t_5xiQABp6ePbxkQ
+Output:
+```
+{
+    "err": "Key does not match for post with id 5"
+}
+```
+3. Test case - 3
+    Input: http://127.0.0.1:5000/post/15/delete/s43gm_t_5xiQABp6ePbxkQ
+Output:
+```
+{
+    "err": "Key does not match for post with id 15"
+}
 ```
 
-
+- Hence all the required cases are implemented for this extension
 
 
 
