@@ -356,6 +356,7 @@ Hence the Implementation of Extension 2 is completed successfully.
 - This extension enables us to search posts within 2 different timestamps.
 - In the input JSON, we need to give "start-time-str" and "end-time-str" values
 - Posts which are created and present in the given timeframe are returned as JSON objects
+- We give the input url "http://127.0.0.1:5000/posts" and the method is "GET"
 1. Test case - 1
 ```
 {
@@ -597,7 +598,7 @@ Hence the necessary test cases are successfully implemented
 - This Extension enables us to search for the posts which contain given input query.
 - Using regex we match for a pattern and return any posts if present
 - It returns "No posts with given input query" if there are no matches
-- "GET" method is used in this extension
+- "GET" method is used in this extension and the input URL is "http://127.0.0.1:5000/posts/search"
 
 1. Test Case - 1
 ```
@@ -711,6 +712,56 @@ Input JSON (Not required)
 Input URL: "http://127.0.0.1:5000/post/<int:id>/delete/<string:post_key>"
 Input method: "DELETE"
 Input JSON (Not required)
+
+4. Extension #1: 
+
+Input URL: "http://127.0.0.1:5000/post"
+Input method: "POST"
+Input JSON (Required)
+```
+{
+    "name":"Name of the User",
+    "username":"Unique Username"
+}
+```
+
+5. Extension #2:
+
+Input URL: "http://127.0.0.1:5000/user/<int:id>"
+Input method: "GET"
+Input JSON (Not Required)
+
+6. Extension #3:
+
+Input URL: "http://127.0.0.1:5000/posts"
+Input method: "GET"
+Input JSON (Required)
+```
+{
+    "start_date_time: "Start Time in ISO Format"
+    "end_date_time: "End Time in ISO Format"
+}
+We can give any one from the above or both but in ISO Format
+```
+
+7. Extension #4:
+
+Input URL: "http://127.0.0.1:5000/posts/user/<string:username>"
+Input method: "GET"
+Input JSON (Not Required)
+
+8. Extension #5:
+
+Input URL: "http://127.0.0.1:5000/posts/search"
+Input method: "GET"
+Input JSON (Required)
+```
+{
+    "query": "Test input you want to search"
+}
+```
+The query field must be present to return the posts matching with input
+
 
 ## 🏃‍Run Guide
 
