@@ -177,13 +177,21 @@ def read_post(id):
             return jsonify(error_message), 404
         else:
             post = posts[id]
-            post_data = {
-                'id': post['id'],
-                'msg': post['msg'],
-                'timestamp': post['timestamp'],
-                "user_id": post["user_id"],
-                "username": post["username"]
-            }
+            read_check=list(post.keys())
+            if read_check.__contains__("user_id") and read_check.__contains__("username"):
+                post_data = {
+                    'id': post['id'],
+                    'msg': post['msg'],
+                    'timestamp': post['timestamp'],
+                    "user_id": post["user_id"],
+                    "username": post["username"]
+                }
+            else:
+                post_data = {
+                    'id': post['id'],
+                    'msg': post['msg'],
+                    'timestamp': post['timestamp'],
+                }
             return jsonify(post_data), 200
         
 # Endpoint #3: delete a post with DELETE /post/{{id}}/delete/{{key}}
