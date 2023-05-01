@@ -121,33 +121,43 @@ def create_post():
 
             if 'msg' not in request_data or not isinstance(request_data['msg'], str):
                 raise ValueError('Request must contain a "msg" field of type string')
-
-            if 'user_id' not in request_data or 'user_key' not in request_data:
-                raise ValueError('Request must contain "user_id" and "user_key" fields')
-
-            user_id = int(request_data['user_id'])
-            user_key = request_data['user_key']
-
-            if user_id not in users or users[user_id]['key'] != user_key:
-                raise ValueError('Invalid user credentials')
-
+            
+            key = secrets.token_urlsafe(16)
+            timestamp = datetime.utcnow().isoformat()
+            
             global id
             id += 1
 
-            # lets get username from user_id
-            username = users[user_id]['username']
+            if 'user_id' in request_data and 'user_key' in request_data:
+                
+                user_id = int(request_data['user_id'])
+                user_key = request_data['user_key']
 
-            key = secrets.token_urlsafe(16)
-            timestamp = datetime.utcnow().isoformat()
-            post = {
-                'id': id,
-                'msg': request_data['msg'],
-                'key': key,
-                'timestamp': timestamp,
-                'user_id': user_id,
-                'username': username
-            }
-            posts[id] = post
+                if user_id not in users or users[user_id]['key'] != user_key:
+                    raise ValueError('Invalid user credentials')
+
+                # lets get username from user_id
+                username = users[user_id]['username']
+
+                post = {
+                    'id': id,
+                    'msg': request_data['msg'],
+                    'key': key,
+                    'timestamp': timestamp,
+                    'user_id': user_id,
+                    'username': username
+                }
+                posts[id] = post
+            elif ('user_id' in request_data and 'user_key' not in request_data) or ('user_id' not in request_data and 'user_key' in request_data):
+                raise ValueError('Request must both user_id and user_key :)')
+            else:
+                post = {
+                    'id': id,
+                    'msg': request_data['msg'],
+                    'key': key,
+                    'timestamp': timestamp,
+                }
+                posts[id] = post
             return jsonify(post), 200
 
         except ValueError as e:
