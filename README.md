@@ -213,6 +213,8 @@ Output:
 
 - Hence all the required cases are implemented for this extension
 
+## 🧩 Extensions:
+
 ### Extension - 1 (Users and user keys)
 
 - This Extension allows us to create new users by giving "name" and "username" values in JSON input.
@@ -356,225 +358,318 @@ Hence the Implementation of Extension 2 is completed successfully.
 - Posts which are created and present in the given timeframe are returned as JSON objects
 1. Test case - 1
 ```
+{
+    "start_date_time":"2023-05-01"
+}
+
+Output:
+
+[
+    {
+        "id": 1,
+        "key": "4bdve3WIls--UJWmCMjbNQ",
+        "msg": "Hello How are you everyone!",
+        "timestamp": "2023-05-01T20:10:29.588142"
+    },
+    {
+        "id": 2,
+        "key": "iqX3qyxTBJQZzMKcEC5P2A",
+        "msg": "Excited to meet you all",
+        "timestamp": "2023-05-01T20:10:51.223520"
+    },
+    {
+        "id": 3,
+        "key": "h1fCdPDL6NO8sAs2YniV2g",
+        "msg": "Hi Speaker!",
+        "timestamp": "2023-05-01T20:11:19.338812",
+        "user_id": 1,
+        "username": "kvsg45"
+    },
+    {
+        "id": 4,
+        "key": "K48srGgmhhVaM4cRCHDh3g",
+        "msg": "We are good",
+        "timestamp": "2023-05-01T20:11:25.867823",
+        "user_id": 1,
+        "username": "kvsg45"
+    },
+    {
+        "id": 5,
+        "key": "ITelg6T7GppMRi--qceQZA",
+        "msg": "How is your day",
+        "timestamp": "2023-05-01T20:11:34.607039",
+        "user_id": 1,
+        "username": "kvsg45"
+    },
+    {
+        "id": 6,
+        "key": "PIPXA744zEpPjiVYmc1neA",
+        "msg": "Wasuppp!!",
+        "timestamp": "2023-05-01T20:11:46.609029",
+        "user_id": 2,
+        "username": "rvalukul"
+    },
+    {
+        "id": 7,
+        "key": "tzdrFozNOd5HlWlkGnD5Mw",
+        "msg": "Let's go to NYC!!",
+        "timestamp": "2023-05-01T20:12:05.827136",
+        "user_id": 3,
+        "username": "hari20"
+    }
+]
+```
+2. Test case - 2
+```
+{
+    "end_date_time":"2023-05-01T20:11:33"
+}
+
+Output:
+
+[
+    {
+        "id": 1,
+        "key": "4bdve3WIls--UJWmCMjbNQ",
+        "msg": "Hello How are you everyone!",
+        "timestamp": "2023-05-01T20:10:29.588142"
+    },
+    {
+        "id": 2,
+        "key": "iqX3qyxTBJQZzMKcEC5P2A",
+        "msg": "Excited to meet you all",
+        "timestamp": "2023-05-01T20:10:51.223520"
+    },
+    {
+        "id": 3,
+        "key": "h1fCdPDL6NO8sAs2YniV2g",
+        "msg": "Hi Speaker!",
+        "timestamp": "2023-05-01T20:11:19.338812",
+        "user_id": 1,
+        "username": "kvsg45"
+    },
+    {
+        "id": 4,
+        "key": "K48srGgmhhVaM4cRCHDh3g",
+        "msg": "We are good",
+        "timestamp": "2023-05-01T20:11:25.867823",
+        "user_id": 1,
+        "username": "kvsg45"
+    }
+]
+```
+3. Test Case 3
+
+```
+{
+    "start_date_time":"2023-05-01T20:10:30",
+    "end_date_time":"2023-05-01T20:11:20"
+}
+
+Output:
+
+[
+    {
+        "id": 2,
+        "key": "iqX3qyxTBJQZzMKcEC5P2A",
+        "msg": "Excited to meet you all",
+        "timestamp": "2023-05-01T20:10:51.223520"
+    },
+    {
+        "id": 3,
+        "key": "h1fCdPDL6NO8sAs2YniV2g",
+        "msg": "Hi Speaker!",
+        "timestamp": "2023-05-01T20:11:19.338812",
+        "user_id": 1,
+        "username": "kvsg45"
+    }
+]
+```
+4. Test Case 4
+
+```
+{
+    "start_date_time":"2023-05-02",
+    "end_date_time":"2023-05-01"
+}
+
+Output:
+
+{
+    "err": "Start time cannot be ahead of End time. Please correct the time."
+}
+
+```
+5. Test Case 5
+
+```
+{
+    "start_date_time":"2023/04/28",
+    "end_date_time":"2023-05-01"
+}
+
+Output
+
+{
+    "err": "Please follow the correct Date - Time ISO8601 format - YYYY-MM-DDTHH:MM:SS.ssssss or YYYY-MM-DD ."
+}
+```
+6. Test Case 6
+```
+{
+    "start_date_time":"2023-04-28",
+    "end_date_time":"2023-05-01"
+}
+
+Output
+
+No posts are created in the given timeframe
+
+```
+
+- Hence these are the test cases for the Date Time based search extension
+
+### Extension - 4 User-based range queries
+
+- This Extension enables us get posts based on the username given
+- It Returns all the posts made by the user and the given username must be string
+- username is given in the input url and no JSON input is required
+- We will be using 'GET' method for this extension
+
+1. Test Case - 1
+    Input: http://127.0.0.1:5000/posts/user/kvsg45
+Output
+```
+[
+    {
+        "id": 3,
+        "key": "h1fCdPDL6NO8sAs2YniV2g",
+        "msg": "Hi Speaker!",
+        "timestamp": "2023-05-01T20:11:19.338812",
+        "user_id": 1,
+        "username": "kvsg45"
+    },
+    {
+        "id": 4,
+        "key": "K48srGgmhhVaM4cRCHDh3g",
+        "msg": "We are good",
+        "timestamp": "2023-05-01T20:11:25.867823",
+        "user_id": 1,
+        "username": "kvsg45"
+    },
+    {
+        "id": 5,
+        "key": "ITelg6T7GppMRi--qceQZA",
+        "msg": "How is your day",
+        "timestamp": "2023-05-01T20:11:34.607039",
+        "user_id": 1,
+        "username": "kvsg45"
+    }
+]
+```
+2. Test Case - 2
+    Input: http://127.0.0.1:5000/posts/user/gouranga
+Output:
+```
+{
+    "err": "No username found: gouranga Please enter correct username"
+}
+```
+3. Test Case - 3
+    Input: http://127.0.0.1:5000/posts/user/hari20
+Output:
+```
+[
+    {
+        "id": 7,
+        "key": "tzdrFozNOd5HlWlkGnD5Mw",
+        "msg": "Let's go to NYC!!",
+        "timestamp": "2023-05-01T20:12:05.827136",
+        "user_id": 3,
+        "username": "hari20"
+    }
+]
+```
+Hence the necessary test cases are successfully implemented
+
+### Extension - 5 Full Text Search
+
+- This Extension enables us to search for the posts which contain given input query.
+- Using regex we match for a pattern and return any posts if present
+- It returns "No posts with given input query" if there are no matches
+- "GET" method is used in this extension
+
+1. Test Case - 1
+```
+{
+    "value":"Hi"
+}
+
+Output
+
+{
+    "err": "Missing query field or query is not a string. Please correct it!"
+}
+```
+2. Test Case - 2
+```
+{
+    "query":"Hi"
+}
+
+Output
+
+[
+    {
+        "id": 3,
+        "key": "h1fCdPDL6NO8sAs2YniV2g",
+        "msg": "Hi Speaker!",
+        "timestamp": "2023-05-01T20:11:19.338812",
+        "user_id": 1,
+        "username": "kvsg45"
+    }
+]
+```
+3. Test Case - 3
+```
+{
+    "query":"was"
+}
+
+Output
+
+[
+    {
+        "id": 6,
+        "key": "PIPXA744zEpPjiVYmc1neA",
+        "msg": "Wasuppp!!",
+        "timestamp": "2023-05-01T20:11:46.609029",
+        "user_id": 2,
+        "username": "rvalukul"
+    }
+]
+```
+4. Tesr Case - 4
+```
+{
+    "query":"hari"
+}
+
+Output
+
+No Matched posts with the query
+```
+- Hence this extension is implemented with no errors, the given input query is validated by ignosring case of the query and the message. 
 
 
 
+## 🐛 Bugs/Issues:
 
 
-
-## 🐛 Bugs/Issues
-
-
-## 💡 Example of issues/bugs and solution for it
+## 💡 Example of issues/bugs and solution for it:
 
 
-
-## Baseline Implementation:
-
-
-## 🧩 Extensions:
-I've implemented 5 extensions. 
-Each extension is described as below:
-
-### 1. Users and user keys:
-- Op-equals extension helps us to evaluate the expressions containing  `+=, -=, *=, /=, %=, ^=, &&=, !!=` operators. 
-  - The format for Op-equals is `VAR OP= ARG` means the `op` is applied on `VAR` with argument `ARG`. Usually, all binary operators can be used in Op-equals. 
-    - Technically, `x op= y` is equal to `x = x op y`.
-      - Refer below example for better understanding and context.
-  1. input: 
-    ```
-    x = 3
-    y = 2
-    x += 1
-    y -= 1
-    print x, y
-    x *= 2
-    y /= 1.5
-    print x, y
-    ```
-
-   - output: 
-    ```
-    4.0 1.0
-    8.0 0.6666666666666666
-    ```
-   
-    2. input: 
-    ```
-    x = 2.2
-    y = 1.3
-    x &&= 0
-    y ||= 0
-    print x, y
-    ```
-    
-    - output: 
-    ```
-    0 1
-    ```
-
-   3. input: 
-    ```
-    x = 5
-    y = 3
-    x += ( y + 1 - 3 * 5)
-    print x, y
-    y /= ( x - x)
-    ```
-    
-    - output: 
-    ```
-    -6.0 3.0
-    divide by zero
-    ```
-
-
-### 2. User profiles (needs user):
-- Binary operations extension evaluates the input statements which contain mathematical expressions having `&& (and), || (or), ! (negation)` operators. `&` and `|` are binary operator while `!` is unary operator. 
-- The output for any boolean expression would `1` means true or `0` means false. Generally, each non-zero number is treated as `true`. 
-- `& (and), | (or)` : supports Op-equals operation too as these are binary operator and updates LHS variable too. 
-- The return type for this boolean operator extension would be int, not float as it represent output as binary i.e. true/false. 
-- These operators have lower precedence than arithmetic and relational expressions. 
-- `|| and &&` are left associative, while `!` is non-associative.
-- Test cases for this extension:
-
-    1. input:
-    ```
-    print 1 && 1, 1 && 0, 1 || 0, !1, !!1, !!!1
-    ```
-  
-    - output: 
-    ```
-    1 0 1 0 1 0
-    ```
-  
-    2. input:
-    ```
-    x = -2
-    y = 0
-    print (x || y) || ( 1 && 1 && 0 && 1 || 1) && y
-    print (x || y) || ( 1 && 1 && 0 && 1 || 1) || y
-    print (x && y) && ( 1 && 1 && 0 && 1 || 1) || y
-    ```
-  
-    - output:
-    ```
-    0
-    1
-    0
-    ```
-
-    3. input:
-    ```
-    x = 1
-    x &&= 1
-    y ||= 0
-    print x, y
-    print !x && 4, 3 && !y && x && 5
-    ```
-  
-    - output:
-    ```
-    1 0
-    0 1
-    ```
-### 3. Date- and time-based range queries
-- Comments are used to improve more readability of written code. The parser just ignores the commented part of the input. 
-- Comments extension helps us to identify whether the input given is markdown or not.  
-- Comments can be done in 2 ways:
-  1. Multi-line comments: it starts with `/*` till `*/`. It can start anywhere and end anywhere. All the token content in b/w these are simply ignored as its commented. 
-  2. Single-line comments: it starts with `#`. It just comments the current one line only. 
-- As per specs, we don't have support for nested comments. Comment can appear anywhere inbetween input token. 
-- Test cases for this extension:
-    1. input:
-    ```
-    print 1
-    # print 2
-    # printing 333
-    print 4
-    print 5
-    /* print 6
-    print 7
-    print 8
-    print 9 */
-    print 10
-    ```
-    
-    - output:
-    ```
-    1.0
-    4.0
-    5.0
-    10.0
-    ```
-  
-    2. input:
-    ```
-    x = 2 /* assigning value to x
-    lets print it 
-    now lets print it */ 
-    print x
-    y = 5 /* assign y to 5 */ + x /* now adding x to it */
-    print x, y # printing value
-    ```
-  
-    - output:
-    ```
-    2.0
-    2.0 7.0
-    ```
-
-    3. input:
-    ```
-    x = 1 /* assign value 1 to x
-    now print it */ print x
-    ```
-    - output:
-    ```
-    parse error
-    ```
-    - The reason is that there's no newline separating the two statements.
-### 4. User-based range queries (needs user)
-- Relational operations extension evaluates the input statements which contain `'==', '<=', '>=', '!=', '<', '>'` operators.  
-- It represents true as `1` and false as `0`. Means the output 1 means the relation holds true for the input.
-- Relational operators should be left associative and lower precedence than arithmteic operators.
-- Test cases for this extension:
-
-    1. input:
-    ```
-    x = 1 <= 2
-    print 1 == 1, 2 != 2, 5 >= 6, 4 <= 4 < 0, x
-    ```
-
-    - ouput:
-    ```
-    1 0 0 0 1
-    ```
-  
-    2. input:
-    ```
-    print x < 2 <= 2 < 3, 1 != 1, 1 > 2 <= 4 <= 5 < 8
-    ```
-
-    - output:
-    ```
-    1 0 0
-    ```
-
-   3. input:
-    ```
-    y = 1 << 2
-    ```
-    - output:
-    ```
-    parse error
-    ```
-    
-
-### 4. User-based range queries (needs user):
-
-
-### 5. Fulltext search:
+## 📖 Summaries of the tests performed:
 
 
 ## 🏃‍Run Guide
