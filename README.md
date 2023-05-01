@@ -61,9 +61,9 @@ Creation of Web Forum Using Python
     "user_id":"5",
     "user_key":"xExsCETjGbDD6X4uWnS8DA"
 }
-```
+
 Output
-```
+
 {
     "id": 14,
     "key": "lD8ZO3hgMGnrf2YRtQS7Nw",
@@ -80,9 +80,9 @@ Output
     "user_id":"3",
     "user_key":"xExsCETjGbDD6X4uWnS8DA"
 }
-```
+
 Output
-```
+
 {
     "err": "Invalid user credentials"
 }
@@ -93,9 +93,9 @@ Output
     "msg":"Hi From Test case 3",
     "user_id":"5"
 }
-```
+
 Output
-```
+
 {
     "err": "Request must contain \"user_id\" and \"user_key\" fields"
 }
@@ -106,9 +106,9 @@ Output
     "user_id":"5",
     "user_key":"xExsCETjGbDD6X4uWnS8DA"
 }
-```
+
 Output
-```
+
 {
     "err": "Request must contain a \"msg\" field of type string"
 }
@@ -120,9 +120,9 @@ Output
     "user_id":"5",
     "user_key":"xExsCETjGbDD6X4uWnS8DA"
 }
-```
+
 Output
-```
+
 {
     "err": "Request must contain a \"msg\" field of type string"
 }
@@ -134,9 +134,9 @@ Case - 6
     "user_id":5,
     "user_key":"xExsCETjGbDD6X4uWnS8DA"
 }
-```
+
 Output
-```
+
 {
     "id": 16,
     "key": "I6n4_fO7nGw44dfj_nXYjA",
@@ -226,9 +226,9 @@ Output:
     "name":"Ramya",
     "username":"rvalukul"
 }
-```
+
 Output
-```
+
 {
     "id": 5,
     "key": "aegyAG96mUCs9NrBgdyEnw"
@@ -239,9 +239,9 @@ Output
 {
     "name":"Arun"
 }
-```
+
 Output
-```
+
 {
     "err": "Username field is missing or not a string."
 }
@@ -251,9 +251,9 @@ Output
 {
     "username":"apjabdul"
 }
-```
+
 Output
-```
+
 {
     "err": "Name field is missing or not a string."
 }
@@ -262,9 +262,9 @@ Output
 ```
 "name":"Khande",
 "username":"khand45"
-```
+
 Output
-```
+
 {
     "err": "Request body must be a valid JSON object."
 }
@@ -295,6 +295,73 @@ Output:
     "err": "Username is already taken."
 }
 ```
+
+### Extension - 2 User profiles (needs user)
+
+- This Extension enables us to get user information by giving the user id in the Input URL or by giving the username
+- The input URL is of the format "http://127.0.0.1:5000/user/\<int:id>" or "http://127.0.0.1:5000/user/\<string:username>"
+- The given id or username is validated if present in the data stored dictionaries.
+- The output is JSON with the following fields in it: "id", "name", "key", "username"
+1. Test case - 1
+Input: http://127.0.0.1:5000/user/2
+```
+{
+    "id": 2,
+    "key": "zxwjNIfXhGNXMjzE6FewEw",
+    "name": "Hari",
+    "username": "hari18"
+}
+```
+2. Test case - 2
+Input: http://127.0.0.1:5000/user/5
+```
+{
+    "id": 5,
+    "key": "aegyAG96mUCs9NrBgdyEnw",
+    "name": "Ramya",
+    "username": "rvalukul"
+}
+```
+3. Test case - 3
+Input: http://127.0.0.1:5000/user/20
+```
+{
+    "err": "User not found with id 20"
+}
+```
+4. Test case - 4
+Input: http://127.0.0.1:5000/user/kvsg45
+```
+{
+    "id": 1,
+    "key": "FYPjgf_UNOvsYj9_VsimjA",
+    "name": "Gouranga",
+    "username": "kvsg45"
+}
+```
+5. Test case - 5
+Input: http://127.0.0.1:5000/user/gouranga
+```
+{
+    "err": "User not found with username gouranga"
+}
+```
+Hence the Implementation of Extension 2 is completed successfully.
+
+
+### Extension - 3 Date- and time-based range queries
+
+- This extension enables us to search posts within 2 different timestamps.
+- In the input JSON, we need to give "start-time-str" and "end-time-str" values
+- Posts which are created and present in the given timeframe are returned as JSON objects
+1. Test case - 1
+```
+
+
+
+
+
+
 ## 🐛 Bugs/Issues
 
 
