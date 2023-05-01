@@ -665,12 +665,52 @@ No Matched posts with the query
 
 ## 🐛 Bugs/Issues:
 
+- Faced issues while implementing the baseline flow and calling that in other extension. Since both access same funtion overlap occured and got errors
+- Faced issues while implementing the date and time based range queries extension. not able to return when only start or end date is given
+- Faced issues while implementing delete baseline since few posts do not contain "username" and "user_id" fields
+- Faced issues while executing the shell scripts (setup.sh and test.sh)
 
 ## 💡 Example of issues/bugs and solution for it:
 
+- In the Baseline Endpoint while creating a post, I have initially designed to mandate the userid and key fields in the input. but only msg field is enough for post creation. To modify this accordingly, I have made code changes such that only msg field is also validated as correct input and also given condition that if userid given, then key is a must field to be provided. 
+- In the similar fashion, for delete extension I have modified the code to pass when there is no userid and key in the post dictionary.
+- In this way I have made modification according the the extension and endpoint API requirements. 
 
 ## 📖 Summaries of the tests performed:
 
+- For Endpoint testing and Extensions Testing please refer the below format while executing in postman
+
+1. Endpoint #1:
+
+Input URL: http://127.0.0.1:5000/post
+Input method: "POST"
+Input JSON (required)
+without user_id and user_key:
+```
+{
+    "msg":"Your Message"
+}
+```
+with user_id and user_key:
+```
+{
+    "msg":"Your Message",
+    "user_id":"ID",
+    "user_key":"user key"
+}
+```
+
+2. Endpoint #2:
+
+Input URL: "http://127.0.0.1:5000/post/<int:id>"
+Input method: "GET"
+Input JSON (Not required)
+
+3. Endpoint #3:
+
+Input URL: "http://127.0.0.1:5000/post/<int:id>/delete/<string:post_key>"
+Input method: "DELETE"
+Input JSON (Not required)
 
 ## 🏃‍Run Guide
 
