@@ -11,3 +11,6 @@ pip3 install threading
 
 # Install re
 pip3 install re
+
+# Install OpenSSL
+pip3 install pyopenssl
