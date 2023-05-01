@@ -14,3 +14,6 @@ pip3 install re
 
 # Install OpenSSL
 pip3 install pyopenssl
+
+# Update pip and setup tools
+pip3 install --upgrade pip setuptools
