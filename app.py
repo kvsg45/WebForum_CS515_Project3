@@ -309,8 +309,9 @@ def get_posts_by_user(username):
             return jsonify({'err': 'No username found: ' + username + ' Please enter correct username'}), 400
         filtered_posts = []
         for post in posts.values():
-            if post['username'] == username:
-                filtered_posts.append(post)
+            if list(post.keys()).__contains__("username"):
+                if post['username'] == username:
+                    filtered_posts.append(post)
         
         # Return filtered posts as JSON
         return jsonify(filtered_posts)
@@ -324,11 +325,11 @@ def search_posts():
         if not request.is_json:
             return jsonify({'err': 'Request body must be a valid JSON object.'}), 400
         
-        if not query or not isinstance(query,int):
-            return jsonify({'err': 'Missing query field or query is not a string. Please correct it!'}), 400
-        
         # Get search from request json
         query = request.json.get('query')
+        
+        if not query or isinstance(query,int):
+            return jsonify({'err': 'Missing query field or query is not a string. Please correct it!'}), 400
         
         # Search posts based on fulltext search
         matched_posts = []
