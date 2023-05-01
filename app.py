@@ -206,13 +206,21 @@ def delete_post(id, key):
             return jsonify(error_message), 403
         else:
             post = posts.pop(id)
-            post_data = {
-                'id': post['id'],
-                'key': post['key'],
-                'timestamp': post['timestamp'],
-                'user_id': post['user_id'],
-                'username': post['username']
-            }
+            post_check=list(post.keys())
+            if post_check.__contains__("user_id") and post_check.__contains__("username"):
+                post_data = {
+                    'id': post['id'],
+                    'key': post['key'],
+                    'timestamp': post['timestamp'],
+                    'user_id': post['user_id'],
+                    'username': post['username']
+                }
+            else:
+                post_data = {
+                    'id': post['id'],
+                    'key': post['key'],
+                    'timestamp': post['timestamp'],
+                }
             return jsonify(post_data), 200
         
 @app.route('/post/<int:id>/delete/user_key/<string:user_key>', methods=['DELETE'])
