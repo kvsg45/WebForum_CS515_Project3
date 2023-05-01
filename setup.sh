@@ -8,7 +8,7 @@ pip3 install pyopenssl
 pip3 install datetime
 
 # Install secrets
-# pip3 install secrets
+pip3 install secrets
 
 
 # Update pip and setup tools
