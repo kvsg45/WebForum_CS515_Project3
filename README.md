@@ -815,7 +815,6 @@ The query field must be present to return the posts matching with input
 - Read README.md file to get more context of the project
 - Keep the postman ready and the code will run in "http://127.0.0.1:5000" local IP address
 - Download all the files in a directory and in the terminal run the command below
-- Inputs to the code is given by stdin
    ```shell
    $ bash run.sh
    ```
