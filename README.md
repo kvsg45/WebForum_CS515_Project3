@@ -662,6 +662,52 @@ No Matched posts with the query
 ```
 - Hence this extension is implemented with no errors, the given input query is validated by ignosring case of the query and the message. 
 
+### Additional Extension (Update user info i.e., name and username):
+
+- This extension enables us to modify the user information by entering the user id and user key in the input JSON
+- If the user id does not match with the user key it throws an error
+- If there is no user id present in the dictionaries, it throws an error
+- The input method is "PUT" and the input URL is: "http://127.0.0.1:5000/user/<int:id>"
+1. Test Case - 1
+```
+Input URL: "http://127.0.0.1:5000/user/1"
+
+{
+    "key": "BKf4RuhL6t2GfBL_w0IGxg",
+    "name": "Gourangakhande",
+    "username": "gouranga"
+}
+
+Output
+
+{
+    "message": "User metadata updated successfully."
+}
+```
+2. Test Case - 2
+```
+Input URL: "http://127.0.0.1:5000/user/10"
+
+Output: 
+{
+    "error": "User not found."
+}
+```
+3. Test Case - 3
+```
+Input URL: "http://127.0.0.1:5000/user/1"
+
+{
+    "key": "BKf4RuhL6t2GfBL_w0IGxf",
+    "name": "Gourangakhande",
+    "username": "gouranga"
+}
+Output
+{
+    "error": "Invalid user key."
+}
+```
+Hence these are the necessary test cases for this extension
 
 
 ## 🐛 Bugs/Issues:
@@ -683,16 +729,16 @@ No Matched posts with the query
 
 1. Endpoint #1:
 
-Input URL: http://127.0.0.1:5000/post
-Input method: "POST"
-Input JSON (required)
-without user_id and user_key:
+- Input URL: http://127.0.0.1:5000/post
+- Input method: "POST"
+- Input JSON (required)
+- without user_id and user_key:
 ```
 {
     "msg":"Your Message"
 }
 ```
-with user_id and user_key:
+- with user_id and user_key:
 ```
 {
     "msg":"Your Message",
@@ -703,21 +749,21 @@ with user_id and user_key:
 
 2. Endpoint #2:
 
-Input URL: "http://127.0.0.1:5000/post/<int:id>"
-Input method: "GET"
-Input JSON (Not required)
+- Input URL: "http://127.0.0.1:5000/post/<int:id>"
+- Input method: "GET"
+- Input JSON (Not required)
 
 3. Endpoint #3:
 
-Input URL: "http://127.0.0.1:5000/post/<int:id>/delete/<string:post_key>"
-Input method: "DELETE"
-Input JSON (Not required)
+- Input URL: "http://127.0.0.1:5000/post/<int:id>/delete/<string:post_key>"
+- Input method: "DELETE"
+- Input JSON (Not required)
 
 4. Extension #1: 
 
-Input URL: "http://127.0.0.1:5000/post"
-Input method: "POST"
-Input JSON (Required)
+- Input URL: "http://127.0.0.1:5000/post"
+- Input method: "POST"
+- Input JSON (Required)
 ```
 {
     "name":"Name of the User",
@@ -767,9 +813,10 @@ The query field must be present to return the posts matching with input
 
 - Install python 3 in your machine
 - Read README.md file to get more context of the project
+- Keep the postman ready and the code will run in "http://127.0.0.1:5000" local IP address
+- Download all the files in a directory and in the terminal run the command below
 - Inputs to the code is given by stdin
    ```shell
-   $ python3 bc.py < input_statements.txt
+   $ bash run.sh
    ```
-  Here, input_statements.txt consists bunch of arthemtic statements which is passed to the BC calculator code.
 
