@@ -5,6 +5,10 @@ import threading
 import re
 app = Flask(__name__)
 
+# Name: Gouranga Khande
+# CWID: 20008981
+# email-id: vkhande4@stevens.edu
+
 lock = threading.Lock()
 users = {}
 user_id = 0
@@ -65,7 +69,7 @@ def read_user(id=None, username=None):
                 user_data = {
                     'id': id,
                     'name': users[id]['name'],
-                    'key': users[id]['key'],
+                    #'key': users[id]['key'],
                     'username': users[id]['username']
                 }
                 return jsonify(user_data), 200
@@ -75,7 +79,7 @@ def read_user(id=None, username=None):
                     user_data = {
                         'id': user_id,
                         'name': user_info['name'],
-                        'key': user_info['key'],
+                        #'key': user_info['key'],
                         'username': user_info['username']
                     }
                     return jsonify(user_data), 200
@@ -222,29 +226,7 @@ def delete_post(id, key):
                     'timestamp': post['timestamp'],
                 }
             return jsonify(post_data), 200
-        
-@app.route('/post/<int:id>/delete/user_key/<string:user_key>', methods=['DELETE'])
-def delete_post_user_key(id, user_key):
-    with lock:
-        if id not in posts:
-            error_message = {'err': 'Post not found with id ' + str(id)}
-            return jsonify(error_message), 404
-        # get user id from post
-        user_id = posts[id]['user_id']
-        # check if user key matches
-        if users[user_id]['key'] != user_key:
-            return jsonify({'error': 'Invalid user key.'}), 401
-        else:
-            post = posts.pop(id)
-            post_data = {
-                'id': post['id'],
-                'key': post['key'],
-                'timestamp': post['timestamp'],
-                'user_id': post['user_id'],
-                'username': post['username']
-            }
-            return jsonify(post_data), 200
-        
+
 # Extension 3 - Date- and time-based range queries
 @app.route('/posts', methods=['GET'])
 def get_posts():
@@ -280,16 +262,23 @@ def get_posts():
         # Filter posts based on timestamp range
         filtered_posts = []
         for post in posts:
+            
             post_time = datetime.fromisoformat(posts[post]['timestamp'])
             if start_time_str and end_time_str:
                 if start_time <= post_time <= end_time:
-                    filtered_posts.append(posts[post])
+                    return_post=posts[post]
+                    del return_post['key']
+                    filtered_posts.append(return_post)
             elif start_time_str:
                 if start_time <= post_time:
-                    filtered_posts.append(posts[post])
+                    return_post=posts[post]
+                    del return_post['key']
+                    filtered_posts.append(return_post)
             elif end_time_str:
                 if post_time <= end_time:
-                    filtered_posts.append(posts[post])               
+                    return_post=posts[post]
+                    del return_post['key']
+                    filtered_posts.append(return_post)               
         
         if len(filtered_posts)==0:
             return "No posts are created in the given timeframe"
@@ -311,7 +300,9 @@ def get_posts_by_user(username):
         for post in posts.values():
             if list(post.keys()).__contains__("username"):
                 if post['username'] == username:
-                    filtered_posts.append(post)
+                    return_post=post
+                    del return_post['key']
+                    filtered_posts.append(return_post)  
         
         # Return filtered posts as JSON
         return jsonify(filtered_posts)
@@ -335,7 +326,9 @@ def search_posts():
         matched_posts = []
         for post in posts:
             if re.search(query, posts[post]['msg'], re.IGNORECASE):
-                matched_posts.append(posts[post])
+                return_post=posts[post]
+                del return_post['key']
+                matched_posts.append(return_post)  
         
         if len(matched_posts)==0:
             return "No Matched posts with the query"
